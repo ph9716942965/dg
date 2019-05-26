@@ -1,11 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kartik\widgets\FileInput;
 use yii\helpers\Url;
+use kartik\field\FieldRange;
+use kartik\widgets\TimePicker;
+//use kartik\widgets\DateTimePicker;
+
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Listing */
@@ -84,16 +90,42 @@ $res=$command->queryAll();
 //
 
 ?>
+
+<?php
+echo FieldRange::widget([
+    'form' => $form,
+    'model' => $model,
+    'label' => 'Enter start and end Day',
+    'attribute1' => 'day_start',
+    'attribute2' => 'day_end',
+    'type' => FieldRange::INPUT_DROPDOWN_LIST,
+    'items1' => $days,
+    'items2' => $days,
+]);
+
+?>
+<?php 
+
+echo FieldRange::widget([
+    'form' => $form,
+    'model' => $model,
+    'label' => 'Enter time range',
+    'attribute1' => 'time_start',
+    'attribute2' => 'time_end',
+    'type' => FieldRange::INPUT_TIME,
+]);
+?>
+<?php /*
 <?=  $form->field($model, 'day_start')->DropdownList(($days),['prompt'=>'From'])->label('Day Start') ?>
 <?=  $form->field($model, 'day_end')->DropdownList(($days),['prompt'=>'To'])->label('Day End') ?>
-
+*/?>
     <?php // $form->field($model, 'day_start')->textInput(['maxlength' => true]) ?>
 
     <?php // $form->field($model, 'day_end')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'time_start')->textInput() ?>
+    <?php // $form->field($model, 'time_start')->textInput() ?>
 
-    <?= $form->field($model, 'time_end')->textInput() ?>
+    <?php // $form->field($model, 'time_end')->textInput() ?>
 
     <?= $form->field($model, 'contact')->textInput(['maxlength' => true]) ?>
 
@@ -112,7 +144,7 @@ $res=$command->queryAll();
     </div>
 
     <?php ActiveForm::end(); ?>
-
+<?php /*
     <script>
 $('#billing_phone').typeahead({
         source: function(query, result)
@@ -148,5 +180,6 @@ $('#billing_phone').typeahead({
        });
 
         </script>
+        */ ?>
 
 </div>
