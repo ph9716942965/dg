@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "listing".
@@ -22,8 +23,6 @@ use Yii;
  * @property int $status
  *
  * @property Subcat $subcat
- * @property Timetable[] $timetables
- * @property Upload[] $uploads
  */
 class Listing extends \yii\db\ActiveRecord
 {
@@ -32,8 +31,8 @@ class Listing extends \yii\db\ActiveRecord
      */
     public $imageFile;
     public $imgvalid;
-    public $timetable;
     const SCENARIO_UPDATE = 'update'; 
+
     public static function tableName()
     {
         return 'listing';
@@ -45,13 +44,13 @@ class Listing extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subcat_id', 'name', 'timetable','contact', 'address', 'description', 'latitude', 'longitude'], 'required'],
+            [['subcat_id', 'name',  'contact', 'address', 'description', 'latitude', 'longitude'], 'required'],
             [['subcat_id', 'status'], 'integer'],
             [['imageFile'], 'file', 'skipOnEmpty' => ($this->imgvalid === self::SCENARIO_UPDATE), 'extensions' => 'png, jpg','maxFiles' => 5],
-            [['time_start', 'time_end','timetable'], 'safe'],
+           
+            [['time_start', 'time_end'], 'safe'],
             [['name', 'day_start', 'day_end', 'contact', 'latitude', 'longitude'], 'string', 'max' => 30],
             [['address'], 'string', 'max' => 400],
-            //[['timetable']]
             [['description'], 'string', 'max' => 1000],
             [['subcat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subcat::className(), 'targetAttribute' => ['subcat_id' => 'id']],
         ];
@@ -60,6 +59,38 @@ class Listing extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+
+    public function upload($reqid=null,$url=null)
+    {
+        if ($this->validate()) {
+            if($url){
+                $connection = Yii::$app->getDb();
+                $fil = Upload::find($reqid)->where('id = '.$reqid);
+                foreach ($this->imageFile as $file) {
+                    $connection->createCommand()->update('upload', ['url' => 'uploads/' . $file->baseName . '.' . $file->extension,], ['id' => $reqid])->execute();
+                    // if($this->s3DeleteImages($url)){
+                    //     //echo "Image delete <br>".$url;exit;
+                    //     return true;
+                    // }
+                }
+            }else{
+            $fdb=new Upload;
+            $fdb->list_id=$reqid;
+            $fdb->list_id=1;
+            foreach ($this->imageFile as $file) {
+               // print_r($file);exit;
+               // $fdb->url=$this->imageUplodeOns3($file->tempName,$file->baseName.'.'.$file->extension);
+                $fdb->file='upload/' . $file->baseName . '.' . $file->extension;
+                $fdb->save();
+                $fdb->saveAs('upload/' . $file->baseName . '.' . $file->extension);
+            }
+            return true;
+        }} else {
+            return false;
+        }
+    }
+
     public function attributeLabels()
     {
         return [
@@ -76,7 +107,6 @@ class Listing extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'status' => 'Status',
-            'timetable'=>'time Table'
         ];
     }
 
@@ -86,21 +116,5 @@ class Listing extends \yii\db\ActiveRecord
     public function getSubcat()
     {
         return $this->hasOne(Subcat::className(), ['id' => 'subcat_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTimetables()
-    {
-        return $this->hasMany(Timetable::className(), ['listing_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUploads()
-    {
-        return $this->hasMany(Upload::className(), ['list_id' => 'id']);
     }
 }

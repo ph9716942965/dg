@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use backend\models\Upload;
+use backend\models\Timetable;
 
 /**
  * ListingController implements the CRUD actions for Listing model.
@@ -74,9 +75,32 @@ class ListingController extends Controller
             echo "<pre>";
             print_r($model->imageFile);
             print_r(Yii::$app->request->post());echo "</pre>";
-            
+            //exit;
             if($model->save())
             {
+                //$timetable=new Timetable();
+                \backend\models\Timetable::savetime($model->getPrimaryKey(),$model->timetable);
+
+                //$count=1;
+                // foreach($model->timetable as $ttbl)
+                // {
+                //     // if($count){
+                //     //     $connection = \Yii::$app->db;
+                //     //     $connection->createCommand()->delete('timetable', 'listing_id = '.$listing_id)->execute();
+                //     //     $count=0;
+                //     // }
+                //     print_r($ttbl);//exit;
+                //     $t=new Timetable();
+                //     $t->listing_id=$model->getPrimaryKey();
+                //     $t->day=$ttbl['day'];
+                //     $t->time_start=$ttbl['time_start'];
+                //     $t->time_end=$ttbl['time_end'];
+                //     print_r($t);
+                  
+                //     $t->save();
+                //     exit;
+                // }
+
                 $fileupload=new Upload();
                 $fileupload->list_id=$model->getPrimaryKey();
                 foreach ($model->imageFile as $file) 
@@ -108,7 +132,9 @@ class ListingController extends Controller
         $model->imgvalid='update';
         $images= \backend\models\Upload::find()->where(["list_id"=>$model->id])->asArray()->all();
         $model->imageFile=isset($images[0]) ? $images[0]['file'] : '';
-       if ($model->load(Yii::$app->request->post()) && $model->save()){
+       if ($model->load(Yii::$app->request->post()) && $model->save())
+       {
+        \backend\models\Timetable::savetime($model->getPrimaryKey(),$model->timetable);
         if(!empty($_FILES['Listing']['name']['imageFile']))
         {
            // echo "<pre>";print_r($_FILES['Listing']['name']['imageFile']);exit;

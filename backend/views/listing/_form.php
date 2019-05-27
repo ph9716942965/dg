@@ -9,6 +9,7 @@ use kartik\widgets\FileInput;
 use yii\helpers\Url;
 use kartik\field\FieldRange;
 use kartik\widgets\TimePicker;
+use unclead\multipleinput\MultipleInput;
 //use kartik\widgets\DateTimePicker;
 
 
@@ -92,7 +93,7 @@ $res=$command->queryAll();
 ?>
 
 <?php
-echo FieldRange::widget([
+ FieldRange::widget([
     'form' => $form,
     'model' => $model,
     'label' => 'Enter start and end Day',
@@ -103,10 +104,7 @@ echo FieldRange::widget([
     'items2' => $days,
 ]);
 
-?>
-<?php 
-
-echo FieldRange::widget([
+ FieldRange::widget([
     'form' => $form,
     'model' => $model,
     'label' => 'Enter time range',
@@ -115,6 +113,53 @@ echo FieldRange::widget([
     'type' => FieldRange::INPUT_TIME,
 ]);
 ?>
+
+<?= $form->field($model, 'timetable')->widget(MultipleInput::className(), [
+    'max' => 10,
+    'cloneButton' => true,
+    'columns' => [
+        [
+            'name'  => 'day',
+            'type'  => 'dropDownList',
+            'title' => 'Select Day Time',
+            'defaultValue' => 1,
+            'items' => $days,
+            // [
+            //     1 => 'id: 1, price: $19.99, title: product1',
+            //     2 => 'id: 2, price: $29.99, title: product2',
+            //     3 => 'id: 3, price: $39.99, title: product3',
+            //     4 => 'id: 4, price: $49.99, title: product4',
+            //     5 => 'id: 5, price: $59.99, title: product5',
+            // ],
+        ],
+        [
+            'name'  => 'time_start',
+            'type'  =>FieldRange::INPUT_TIME,
+            'title' => 'Opens at',
+            'defaultValue' => date('d-m-Y h:i')
+        ],
+        [
+            'name'  => 'time_end',
+            'type'  =>FieldRange::INPUT_TIME,
+            'title' => 'Closes at',
+            'defaultValue' => date('d-m-Y h:i')
+        ],
+        
+           
+        
+        // [
+        //     'name'  => 'count',
+        //     'title' => 'Count',
+        //     'defaultValue' => 1,
+        //     'enableError' => true,
+        //     'options' => [
+        //         'type' => 'number',
+        //         'class' => 'input-priority',
+        //     ]
+        // ]
+    ]
+])->label(false); ?>
+
 <?php /*
 <?=  $form->field($model, 'day_start')->DropdownList(($days),['prompt'=>'From'])->label('Day Start') ?>
 <?=  $form->field($model, 'day_end')->DropdownList(($days),['prompt'=>'To'])->label('Day End') ?>
@@ -131,7 +176,7 @@ echo FieldRange::widget([
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>
 

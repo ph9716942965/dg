@@ -27,11 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'subcat_id',
+            //'id',
+            //'subcat_id',
+            'subcat.categories.name',
+            'subcat.name',
             'name',
-            'day_start',
-            'day_end',
+            //'day_start',
+            //'day_end',
             //'time_start',
             //'time_end',
             //'contact',
@@ -39,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description',
             //'latitude',
             //'longitude',
-            //'status',
+            'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
