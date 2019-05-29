@@ -8,10 +8,13 @@ function timetable($timetable){
     //     }
     //     $html.=' <p>Day - '.$dowMap[$timing->day].'</p>';
     // }
-    foreach($timetable as $timing){
-        $html.=' <p>Day - '.$dowMap[$timing->day].'</p>';
-        $html.=' <p>Timing : '.$timing->time_start.' - '.$timing->time_end.'</p>';
+    if(is_array($timetable)){
+        foreach($timetable as $timing){
+            $html.=' <p>Day - '.$dowMap[$timing->day].'</p>';
+            $html.=' <p>Timing : '.$timing->time_start.' - '.$timing->time_end.'</p>';
+        }
     }
+    
     return $html;
 }
 
@@ -23,12 +26,12 @@ foreach($listing as $list){
     echo '<div class="ratingbox">
     <img src="'.@($this->config->item('admin_url').'/'.$list->images[0]->file).'" height="207" width="237"/>
     <div class="ratingdetails">
-    <p>'.$list->catname->name .' '. $list->subcatname->name. '</p>
-    <p>'.$list->name.'</p>
-    '.timetable($list->timetable).'
+    <p>'.@$list->catname->name .' '. @$list->subcatname->name. '</p>
+    <p>'.@$list->name.'</p>
+    '.timetable(@$list->timetable).'
     
-    <p>Contact No : '.$list->contact.'</p>
-    <p>Address : '.$list->address.'</p>
+    <p>Contact No : '.@$list->contact.'</p>
+    <p>Address : '.@$list->address.'</p>
     <a class="listprice" href="#">View More...</a>
     <span class="listprice">EUR 1</span>
     </div>

@@ -50,16 +50,19 @@ class Welcome extends CI_Controller {
 	   
 	   if($sub!=null)
 	   {
-		$data['listing']=$this->Common_model->Listing();
-		$data['main_content']=$this->load->view('listing', $data, TRUE);
-		//echo "<pre>";print_r($l);exit;
+		$lists=$this->Common_model->gets('listing',['subcat_id'=>(int) $sub]);
+		if(sizeof($lists)>0){
+			$data['listing']=[];
+			foreach($lists as $list){
+				array_push($data['listing'],$this->Common_model->Listing($list->id)[0]);
+				}
+			$data['main_content']=$this->load->view('listing', $data, TRUE);
 		}
+
+		}
+
         $this->load->view('index', $data);
 	}
-
-	
-
-	
 
 
 }
