@@ -1,4 +1,4 @@
-
+</div>
 <div class="footer-top">
 <div class="container">
 
@@ -50,10 +50,50 @@ var screenReaderText = {"expand":"expand child menu","collapse":"collapse child 
 <script type='text/javascript' src='<?= base_url("assets/")?>wp-content/plugins/cyclone-slider-2/js/client6af1.js?ver=2.11.0'></script>
 <script type='text/javascript' src='<?= base_url("assets/")?>wp-includes/js/wp-embed.min1f93.js?ver=4.8.9'></script>
 
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 <script>
-$(document).ready(function () {
+
+
+$('#searchbar22').typeahead({
+    var HomeURL= <?= base_url()?>
+        source: function(query, result)
+        {
+         $.ajax({
+         url: HomeURL + "/ali/Search",
+         method:"POST",
+         data:{Key:query},
+         dataType:"json",
+         success:function(data)
+          {
+         result($.map(data, function(item){
+            return item;
+           }));
+          }
+         })
+        },
+        // afterSelect: function (item) {
+        //     $.ajax({
+        //         url: HomeURL + "/handler/getusers.php",
+        //      method:"POST",
+        //      data:{CustomerGetByPhone:item},
+        //      dataType:"json",
+        //      success:function(data)
+        //        {
+        //          console.log(data);
+        //          $("#billing_title").val(data[0].customername);
+        //             $("#billing_email").val(data[0].email);
+        //             $("#billing_phone").val(data[0].phone);
+        //        }
+        //       })
+        // }
+       });
+// $(document).ready(function () {
+//     $("#searchbar").change(function(){
+//   alert("The text has been changed.");
+// });
+    
     $(".accordion_title").click(function () {
         if ($('.accordion_desc').is(':visible')) {
             $(".accordion_desc").slideUp(300);

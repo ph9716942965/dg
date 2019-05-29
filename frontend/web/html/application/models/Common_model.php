@@ -1,6 +1,36 @@
 <?php
 class Common_model extends CI_Model {
 
+    public function search($keyword,$selectedkey=false){
+        //CREATE VIEW `search` AS select l.id, CONCAT(l.name,' ',s.name,' ',c.name) as search, l.name as list , s.name as sub, c.name as cat from listing as l left join subcat as s on s.id=l.subcat_id left join categories as c on c.id=s.categories_id
+      if($selectedkey){
+        $this->db->select('id');
+         $this->db->group_start();
+         $this->db->like('search',$selectedkey);
+         $this->db->group_end();
+         $list = $this->db->get('search');
+         $list=$list->result_array();
+         $return=[]; 
+         foreach($list as $id){
+             array_push($return,$this->Listing($id['id'])[0]);
+         }
+         return $return;
+      }
+
+        $this->db->select('search');
+       // $this->db->where("business_type = 'manufacturer'");
+        $this->db->group_start();
+        $this->db->like('search',$keyword);
+        //$this->db->or_like('keyword',$keyword);
+       // $this->db->or_like('products_deals_with',$keyword);
+       // $this->db->or_like('buisness_name',$keyword);
+        $this->db->group_end();
+        $query = $this->db->get('search');
+        // echo $this->db->last_query();
+        return $query->result_array();
+
+    }
+
    public function gets($table,$condition){
     $this->db->select();
     $this->db->from($table);

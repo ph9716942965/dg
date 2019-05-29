@@ -1,3 +1,49 @@
+<?php /*
+<html lang="en">
+<head>
+    <title>Bootstrap Typeahead with Ajax Example</title>  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
+</head>
+<body>
+
+
+<div class="row">
+	<div class="col-md-12 text-center">
+		<br/>
+		<h1>Search Dynamic Autocomplete using Bootstrap Typeahead JS</h1>	
+			
+			
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+
+	$('#hh').typeahead({
+	    source:  function (query, process) {
+        return $.get("<?= base_url('/api/Search')?>" , { query: query }, function (data) {
+        		console.log(data);
+        		data = $.parseJSON(data);
+	            return process(data);
+	        });
+	    }
+	});
+
+
+</script>
+</body>
+</html>
+
+
+ exit;
+*/
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -61,21 +107,58 @@ img.emoji {
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <link href="<?= base_url('assets/')?>wp-content/themes/dance-theme/css/style.css" media="all" rel="stylesheet" type="text/css">
 <link href="<?= base_url('assets/')?>wp-content/themes/dance-theme/css/responsive.css" media="all" rel="stylesheet" type="text/css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
+
 </head>
 
 <body>
 
 <div class="header">
 <div class="container">
-<div class="col-md-2"><a href="index.html"><img src="<?= base_url('assets/')?>wp-content/themes/dance-theme/images/logo.png"></a><button class="navibtn"><i class="fa fa-bars"></i></button></div>
+<div class="col-md-2"><a href="<?= base_url()?>"><img src="<?= base_url('assets/')?>wp-content/themes/dance-theme/images/logo.png"></a><button class="navibtn"><i class="fa fa-bars"></i></button></div>
 
 <div class="col-md-7">
-<form method="post" action="http://danceglobe.co/">
-<input type="text" name="sasfsd" placeholder="Search..." autocomplete="off">
+<input id="hh" placeholder="Search..." name="sasfsd" autocomplete="off"  type="text">
 <div class="searchbtn">
 <button type="submit" name="searchsubmit"><i class="fa fa-search"></i></button>
 </div>
-</form>
+
+<script type="text/javascript">
+
+
+	$('#hh').typeahead({
+	    source:  function (query, process) {
+        return $.get("<?= base_url('/api/Search')?>" , { searchkey: query }, function (data) {
+        		
+						//console.log(process);
+        		data = $.parseJSON(data);
+						console.log(data);
+	            return process(data);
+	        });
+	    },
+			afterSelect: function (item) {
+            $.ajax({
+                url: "<?= base_url('/api/Search')?>" ,
+             method:"POST",
+             data:{selectedSearch:item},
+            // dataType:"json",
+             success:function(data)
+               {
+                 console.log(data);
+								$('#content').html(data);
+                //  $("#billing_title").val(data[0].customername);
+                //     $("#billing_email").val(data[0].email);
+                //     $("#billing_phone").val(data[0].phone);
+               }
+              })
+        }
+	});
+
+
+</script>
+
 <div class="menu navmenu">
 <?php
 $links=$this->Common_model->get('categories');
@@ -95,3 +178,4 @@ foreach($links as $link){
 </div>
 
 </div>
+<div id="content">
