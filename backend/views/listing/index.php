@@ -41,7 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description',
             //'latitude',
             //'longitude',
-            'status',
+            //'status',
+            [
+                //'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {   
+                   return ($model->status==1) 
+                    ? '<i class="material-icons text-success"> check_circle_outline </i>'
+                    : '<i class="material-icons text-danger">highlight_off</i>' ;             
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

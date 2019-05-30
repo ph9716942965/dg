@@ -35,7 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->image; },
                    ),
            // 'image',
-            'status',
+           [
+            //'attribute' => 'status',
+            'format' => 'raw',
+            'value' => function ($model) {   
+               return ($model->status==1) 
+                ? '<i class="material-icons text-success"> check_circle_outline </i>'
+                : '<i class="material-icons text-danger">highlight_off</i>' ;             
+            },
+        ],
+            //'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

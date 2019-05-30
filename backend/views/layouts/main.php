@@ -18,6 +18,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
     <meta charset="<?= Yii::$app->charset ?>" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -48,7 +49,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>Admin Adil</h2>
+                        <h2><?= (Yii::$app->user->isGuest) ? '' : yii::$app->user->identity->username?></h2>
                     </div>
                 </div>
                 <!-- /menu prile quick info -->
@@ -66,9 +67,13 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
  if (Yii::$app->user->isGuest) {
     $menuItems[] = ["label" => "Login", "url" => "index.php?r=site/login", "icon" => "home"];
  }else{
-    $menuItems[] = ["label" => "Categories", "url" => "index.php?r=categories", "icon" => "home"];
-    //$menuItems[] = ["label" => "Categories", "url" => "/categories", "icon" => "home"];
-    $menuItems[] = ["label" => "Sub Categories", "url" => "index.php?r=subcat", "icon" => "home"];
+
+    if(yii::$app->user->identity->role_id==0){
+        $menuItems[] = ["label" => "Categories", "url" => "index.php?r=categories", "icon" => "home"];
+        //$menuItems[] = ["label" => "Categories", "url" => "/categories", "icon" => "home"];
+        $menuItems[] = ["label" => "Sub Categories", "url" => "index.php?r=subcat", "icon" => "home"];    
+    }
+    
     $menuItems[] = ["label" => "Listing", "url" => "index.php?r=listing", "icon" => "home"];
     $menuItems[] = ["label" => "logout", "url" => "index.php?r=site/logout", "icon" => "home"];
  }
