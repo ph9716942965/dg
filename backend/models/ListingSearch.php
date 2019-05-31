@@ -2,9 +2,11 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Listing;
+
 
 /**
  * ListingSearch represents the model behind the search form of `backend\models\Listing`.
@@ -40,8 +42,13 @@ class ListingSearch extends Listing
      */
     public function search($params)
     {
-        $query = Listing::find();
-
+        if(Yii::$app->user->identity->role_id==0){
+        $query = Listing::find(); 
+        }else{
+           // $query1 = ClaimRequest::find()->where(['user_id' => $id, 'active' => 1])->andWhere('state_id<3')->orderBy(['id' => SORT_ASC]);
+           
+            $query = Listing::find()->where(['user_id' => Yii::$app->user->identity->id]);
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

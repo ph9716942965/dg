@@ -42,11 +42,18 @@ class Listing extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function init()
+    {
+        parent::init();
+        $this->user_id = Yii::$app->user->identity->id;
+    }
+
+
     public function rules()
     {
         return [
             [['subcat_id', 'name', 'timetable','contact', 'address', 'description', 'latitude', 'longitude'], 'required'],
-            [['subcat_id', 'status'], 'integer'],
+            [['subcat_id', 'status','user_id'], 'integer'],
             [['imageFile'], 'file', 'skipOnEmpty' => ($this->imgvalid === self::SCENARIO_UPDATE), 'extensions' => 'png, jpg','maxFiles' => 5],
             [['time_start', 'time_end','timetable'], 'safe'],
             [['name', 'day_start', 'day_end', 'contact', 'latitude', 'longitude'], 'string', 'max' => 30],

@@ -66,6 +66,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
  
  if (Yii::$app->user->isGuest) {
     $menuItems[] = ["label" => "Login", "url" => "index.php?r=site/login", "icon" => "home"];
+    $menuItems[] = ["label" => "Signup", "url" => "index.php?r=site/signup", "icon" => "home"];
  }else{
 
     if(yii::$app->user->identity->role_id==0){
@@ -73,7 +74,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
         //$menuItems[] = ["label" => "Categories", "url" => "/categories", "icon" => "home"];
         $menuItems[] = ["label" => "Sub Categories", "url" => "index.php?r=subcat", "icon" => "home"];    
     }
-    
+
     $menuItems[] = ["label" => "Listing", "url" => "index.php?r=listing", "icon" => "home"];
     $menuItems[] = ["label" => "logout", "url" => "index.php?r=site/logout", "icon" => "home"];
  }
