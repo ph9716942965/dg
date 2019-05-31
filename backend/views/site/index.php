@@ -7,46 +7,102 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>DashBoard!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead"> </p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+       </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+        <div class="col-md-12">
+                <div class="">
+                  <div class="x_content">
+                    <div class="row">
+					
+					
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                          </div>
+                          <div class="count">179</div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                          <h3>New Sign ups</h3>
+                          <p>Totals</p>
+                        </div>
+                      </div>
+					  
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-comments-o"></i>
+                          </div>
+                          <div class="count">179</div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                          <h3>Total Vendors</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+					  
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                          </div>
+                          <div class="count">179</div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                          <h3>Today Traffic</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          </div>
+                          <div class="count">179</div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                          <h3>Total Listing</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                    </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+                    <div class="row top_tiles" style="margin: 10px 0;">
+                      <div class="col-md-3 tile">
+                        <span>Total Sessions</span>
+                        <h2>231,809</h2>
+                        <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+                      </div>
+                      <div class="col-md-3 tile">
+                        <span>Total Revenue</span>
+                        <h2>$ 1,231,809</h2>
+                        <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+                      </div>
+                      <div class="col-md-3 tile">
+                        <span>Total Sessions</span>
+                        <h2>231,809</h2>
+                        <span class="sparkline_three" style="height: 160px;"><canvas width="200" height="40" style="display: inline-block; width: 200px; height: 40px; vertical-align: top;"></canvas></span>
+                      </div>
+                      <div class="col-md-3 tile">
+                        <span>Total Sessions</span>
+                        <h2>231,809</h2>
+                        <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+                      </div>
+                    </div>
+
+
+
+
+                    <br>
+                    <div class="row">
+                     
+
+
+                    
+                  </div>
+                </div>
+              </div>
+
         </div>
 
     </div>
