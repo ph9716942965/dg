@@ -72,9 +72,11 @@ class ListingController extends Controller
         if ($model->load(Yii::$app->request->post())){
             
             $model->imageFile =UploadedFile::getInstances($model, 'imageFile');
+            ob_start();
             echo "<pre>";
             print_r($model->imageFile);
             print_r(Yii::$app->request->post());echo "</pre>";
+            ob_get_clean();
             //exit;
             if($model->save())
             {

@@ -13,7 +13,7 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'maxFiles' => 10], // <--- here!
+            [['file'], 'file', 'maxFiles' => 10, 'checkExtensionByMimeType'=>false], // <--- here!
         ];
     }
 }
